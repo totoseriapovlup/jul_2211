@@ -66,4 +66,10 @@ class Route
     {
         return '/' . $controller . '/' . $action;
     }
+
+    public static function redirect(string $url = '/') : never
+    {
+        header('Location: ' . $url);
+        exit();
+    }
 }
