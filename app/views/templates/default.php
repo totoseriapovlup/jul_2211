@@ -9,5 +9,6 @@
     </head>
     <body>
         <?php include_once self::VIEWS_DIR . 'pages' . DIRECTORY_SEPARATOR . $page . '.php'?>
+        <script src="/js/main.js"></script>
     </body>
 </html>

@@ -7,17 +7,5 @@
             <th>Action</th>
         </tr>
     </thead>
-    <?php if(count($notes) > 0):?>
-        <?php foreach ($notes as $note):?>
-        <tr>
-            <td><?= $note['name']?></td>
-            <td>
-                <form action="<?= \app\core\Route::url('admin', 'destroy')?>" method="post">
-                    <input type="hidden" name="id" value="<?= $note['id']?>"/>
-                    <input type="submit" value="Delete"/>
-                </form>
-            </td>
-        </tr>
-        <?php endforeach;?>
-    <?php endif;?>
+    <tbody></tbody>
 </table>
