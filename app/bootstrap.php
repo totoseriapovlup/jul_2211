@@ -32,4 +32,19 @@ spl_autoload_register(function($class){
 });
 
 loadConfig();
-new \app\core\Route();
+if(conf('DEBUG') === 'true'){
+    new \app\core\Route();
+}else{
+    try{
+        new \app\core\Route();
+    }catch (Exception $e){
+        //запис в log  про конкретну помилку
+
+        //відправка повідомлення про помилку
+
+        //показати сторінку що щось пішло не так
+        $view = new \app\core\View();
+        $view->render('error', ['title'=>'oops']);
+    }
+}
+
