@@ -62,7 +62,8 @@ class Route
      * @param string $action
      * @return string
      */
-    public static function url(string $controller = self::DEFAULT_NAME, string $action = self::DEFAULT_NAME){
+    public static function url(string $controller = self::DEFAULT_NAME, string $action = self::DEFAULT_NAME) : string
+    {
         return '/' . $controller . '/' . $action;
     }
 }
