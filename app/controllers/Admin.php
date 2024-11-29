@@ -4,24 +4,37 @@
 namespace app\controllers;
 
 use app\core\AbstractController;
+use app\core\Route;
 use app\models\Note;
 
 class Admin extends AbstractController
 {
+    protected $model;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->model = new Note();
+    }
+
     public function index()
     {
+        $notes = $this->model->all();
         $this->view->render('admin', [
             'title' => 'dashboard',
+            'notes' => $notes,
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         $this->view->render('create', [
             'title' => 'dashboard|create note',
         ]);
     }
 
-    public function store(){
+    public function store()
+    {
         $note = filter_input(INPUT_POST, 'note');
         //validate
         //1.check note by conditions
@@ -29,7 +42,14 @@ class Admin extends AbstractController
         //3.if errors exist redirect to form
 
         //save new note
-        $noteModel = new Note();
-        $noteModel->add(['name'=>$note]);
+        $this->model->add(['name' => $note]);
+        Route::redirect(Route::url('admin', 'index'));
+    }
+
+    public function destroy(){
+        $id = filter_input(INPUT_POST, 'id');
+        //TODO validate
+        $this->model->delete($id);
+        Route::redirect(Route::url('admin', 'index'));
     }
 }
