@@ -25,8 +25,15 @@ class Note
 
     public function add(array $note) : bool
     {
-        $query = "INSERT INTO notes (name) VALUES ('{$note['name']}');";
-        return $this->db->query($query);
+        //$query = "INSERT INTO notes (name) VALUES ('{$note['name']}');";
+        $query = "INSERT INTO notes (name) VALUES (?);";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $note['name']);
+        $res = $stmt->execute();
+        if($this->db->errno){
+            throw new \mysqli_sql_exception($this->db->error);
+        }
+        return $res;
     }
 
     public function get($id){
